@@ -13,8 +13,10 @@ import subprocess
 import unicodedata
 import re
 from awscli.clidriver import create_clidriver
+import io
+import time
 
-version_number = 1.08
+version_number = 1.09
 
 def get_session(region, access_id, secret_key, secret_token = None):
     if not secret_token:
@@ -450,10 +452,14 @@ def upload_and_return_download_link(client, file_name, bucket, object_name=None)
     config = TransferConfig(max_concurrency=multiprocessing.cpu_count())
 
     # Upload the file
-    response = client.upload_file(os.path.join(os.getcwd(),file_name), bucket, object_name, Config=config)
-    print(response)
-    file_url = '%s/%s/%s' % (client.meta.endpoint_url, bucket, object_name)
-    return file_url
+    file = open(os.path.join(os.getcwd(),file_name), 'rb')
+    buf = io.BytesIO(file.read())
+    start = time.time()
+    print("starting to upload file {} to bucket {}".format(file_name, bucket))
+    client.upload_fileobj(buf, bucket, object_name, Config=config)
+    end = time.time()
+    print("finished uploading file {} to bucket {}. time: {}".format(file_name, bucket, end - start))
+    return 0
 
 
 def batch(account_number,role_to_assume_to_target_account,path_to_local_folder_to_batch,s3_bucket_to_upload_to,zip_name_override,dont_assume,mfa_token,serial_number):

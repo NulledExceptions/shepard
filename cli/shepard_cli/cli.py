@@ -6,7 +6,7 @@ import uuid
 
 from .lib import deploy,batch,query,describe,secretify,configure,check_for_updates,check_for_environment_variables,check_profile,set_profile,delete_profile,clear_profile_config,where_am_i,retrieve,check_role,set_role,release_role,batch_via_api
 
-version_number = 1.08
+version_number = 1.09
 
 @click.command()
 @click.argument("command", default='')
