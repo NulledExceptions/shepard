@@ -540,6 +540,16 @@ Results uploaded to the outputs bucket at the end of a job from the path specifi
  * if TAG is specified : tag_to_append+'_result@' + UUID + '_' + START_TIME + '_lustre' + '.zip'
  * If TAG is not specified:  'result@' + UUID + '_' + START_TIME + '_lustre' + '.zip'
 
+## Alternate Ways to Import Data to Jobs
+
+### Importing Data to Jobs Using EFS
+
+If you have your Cloudformation configured to provision an EFS filesystem for use with your flock all of your jobs will have a read-only mount that has visibility to everything on the EFS at __"/mnt/efs/read_only"__ . If you'd like to you can store as much data as you'd like your jobs to be able to access during runtime on the EFS filesystem and it will be available to all jobs run on your flock.
+
+### Importing Data to Jobs Using Lustre
+
+If you have your Cloudformation configured to provision an Lustre filesystem for use with your flock all of your jobs will have a read-only mount that has visibility to everything on the Lustre file system at __"/mnt/fsx/read_only"__ . If you'd like to you can store as much data as you'd like your jobs to be able to access during runtime on the Lustre filesystem and it will be available to all jobs run on your flock. Also there's an option to specify using a preexisting S3 bucket with your Lustre Filesystem and if you do that and then have the Cloudformation provision a Lustre filesystem for your flock all of the data in that s3 bucket will be automatically imported to the Lustre filesystem when it's provisioned and this will be immediately available to all of your jobs to access during runtime. This is a very easy way to automatically import data into your Lustre filesystem for use with your processing jobs in your flock.
+
 ## Core Concepts
 
 The main takeaways from Shepard I'd like to pass on to others are the following observations:
