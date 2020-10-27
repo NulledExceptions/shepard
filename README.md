@@ -151,7 +151,7 @@ The CLI gets access to AWS assets by using the credentials stored in the awscli.
 Takes a specified folder containing either a "Dockerfile" or "Dockerfile.txt" (but not both) and uses the contents in that folder to build and push a workflow container to an elastic container registry hooked up to a shepard architecture. Running this command will change the code used by this architecture to be whatever you last deployed.
 
 **batch**
-Takes a specified folder with inputs and zips this folder and gives the zip a UUID name and uploads it to the inputs bucket folder for an architecture. This will batch out a job. You can override the UUID name given to output zips but doing this would have very little use practically and would actually be detrimental if you uploaded too many job zips with the same name too quickly.
+Takes a specified folder with inputs and zips this folder and gives the zip a UUID name and uploads it to the inputs bucket folder for an architecture. This will batch out a job. You can override the UUID name given to output zips but doing this would have very little use practically and would actually be detrimental if you uploaded too many job zips with the same name too quickly. This command will fail with an error if the inputs.txt file in the target directory contains improperly formatted json.
 
 **query**
 Every architecture gets a DynamoDB that stores metadata regarding jobs and includes arguments for said jobs, a UUID assigned to that job and stuff regarding the stop time, start time and other metadata. Running this command will print out information regarding all running jobs and sometimes some very recently stopped jobs.

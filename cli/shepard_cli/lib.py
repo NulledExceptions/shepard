@@ -461,6 +461,14 @@ def upload_and_return_download_link(client, file_name, bucket, object_name=None)
     print("finished uploading file {} to bucket {}. time: {}".format(file_name, bucket, end - start))
     return 0
 
+def lint_json(filename):
+    try:
+        with open(filename) as f:
+            test = json.load(f)
+            return 0
+    except ValueError as e:
+        print('json error found in inputs.txt file!')
+        raise e
 
 def batch(account_number,role_to_assume_to_target_account,path_to_local_folder_to_batch,s3_bucket_to_upload_to,zip_name_override,dont_assume,mfa_token,serial_number):
 
@@ -510,6 +518,9 @@ def batch(account_number,role_to_assume_to_target_account,path_to_local_folder_t
 
         if not os.path.exists(os.path.join(path_to_local_folder_to_batch,'inputs.txt')):
             raise ValueError('No file named "inputs.txt" was detected in the target folder. The batch command is being aborted.')
+
+        # if json is incorrectly formatted in the inputs.txt file throw an error.
+        lint_json(os.path.join(path_to_local_folder_to_batch,'inputs.txt'))
 
         print('copying data locally into compressed archive with name ' + UUID + '.zip')
 
