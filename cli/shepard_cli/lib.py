@@ -16,7 +16,7 @@ from awscli.clidriver import create_clidriver
 import io
 import time
 
-version_number = 1.09
+version_number = 1.10
 
 def get_session(region, access_id, secret_key, secret_token = None):
     if not secret_token:
