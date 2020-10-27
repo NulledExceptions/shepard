@@ -187,7 +187,7 @@ Clears your current default profile if you have one set and makes it so you have
 Sets a profile specified by profile name as your default profile.
 
 **set_role**
-Generates role variables and attaches them to all additional commands. 
+Generates role variables and attaches them to all additional commands. Requires the use of mfa_token and serial_number arguments. Intended for use in attaching a role when using mfa to assume for every command would be inconvenient.
 
 **release_role**
 Release a role set by the set_role command.
