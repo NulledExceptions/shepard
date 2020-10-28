@@ -16,7 +16,7 @@ from awscli.clidriver import create_clidriver
 import io
 import time
 
-version_number = 1.10
+version_number = 1.101
 
 def get_session(region, access_id, secret_key, secret_token = None):
     if not secret_token:
@@ -1171,7 +1171,7 @@ def batch_via_api(account_number,role_to_assume_to_target_account,lambda_to_invo
         print('Attempting to evaluate the following string to json dictionary ...')
         print(str(json_payload))
         print("Hint: if this doesn't work sometimes you need to enclose everything within the json brackets in double quotes and the whole string in single quotes")
-        print('I.E. make a call like this: shepard_cli % shepard_cli batch_via_api --json_payload '+"'{"+"TAG:testing_batching_endpoint"+"}'")
+        print('I.E. make a call like this: shepard_cli % shepard_cli batch_via_api --json_payload '+"'{"+'"TAG":"HELLO"'+"}'")
         print('#####################################################################')
         print('#####################################################################')
 
